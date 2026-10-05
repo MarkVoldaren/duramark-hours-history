@@ -1,0 +1,6 @@
+*
+!nginx.conf
+!app/
+!app/index.html
+!app/styles.css
+!app/app.js

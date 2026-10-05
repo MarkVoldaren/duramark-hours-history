@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    container_name: duramark-hours-history
+    restart: unless-stopped
+    networks:
+      - apps_proxy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  apps_proxy:
+    external: true

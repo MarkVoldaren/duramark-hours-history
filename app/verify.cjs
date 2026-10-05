@@ -1,0 +1,16 @@
+const fs = require('node:fs');
+const assert = require('node:assert/strict');
+const {parseCSV, groupRuns} = require('./app.js');
+const data = parseCSV(fs.readFileSync(process.argv[2], 'utf8'));
+const valid = data.filter(r => r.Part && r['WO #']);
+const combo = groupRuns(valid.filter(r => r['Combo #'] === '000034CO'));
+assert.equal(combo.length, 3);
+assert.equal(new Set(combo.map(r => r.total)).size, 1);
+const part = valid.filter(r => r.Part === '145-5381-1507');
+const runs = groupRuns(part);
+assert(Math.abs(part.reduce((s,r) => s + Number(r['Estimated Work'] || 0), 0) - runs.reduce((s,r) => s + r.total, 0)) < 1e-8);
+const sample = parseCSV('Part,WO #,Combo #,Manufacturing Work Center,Estimated Work,Description\r\nP,W,C,Cut,1.5,"Line one\nLine two, ""quoted"""');
+assert.equal(sample[0].Description, 'Line one\nLine two, "quoted"');
+assert.throws(() => parseCSV('Part,WO #'));
+assert.throws(() => parseCSV('Part,WO #,Combo #,Manufacturing Work Center,Estimated Work\nP,W,C,Cut,"1'));
+console.log(JSON.stringify({rows:data.length, validRows:valid.length, partRuns:runs.length, comboParts:combo.length, comboHours:combo.reduce((s,r)=>s+r.total,0)}));
