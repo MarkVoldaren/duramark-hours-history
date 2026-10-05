@@ -1,5 +1,6 @@
 *
 !nginx.conf
+!server.cjs
 !app/
 !app/index.html
 !app/styles.css

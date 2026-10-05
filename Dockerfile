@@ -1,3 +1,7 @@
-FROM nginx:stable-alpine
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY app/index.html app/styles.css app/app.js /usr/share/nginx/html/
+FROM node:22-alpine
+WORKDIR /app
+COPY server.cjs ./
+COPY app/index.html app/styles.css app/app.js ./app/
+ENV PORT=80 DATA_DIR=/data
+EXPOSE 80
+CMD ["node", "server.cjs"]
