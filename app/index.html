@@ -16,6 +16,17 @@
 <div><label for="status">Status</label><select id="status" disabled><option value="">All statuses</option></select></div>
 <button id="export" disabled>Export history</button>
 <button id="add-summary" disabled>Add to summary</button>
+<button id="bulk-open" type="button" disabled aria-expanded="false" aria-controls="bulk-panel">Bulk add to summary</button>
+</section>
+<section id="bulk-panel" class="bulk-panel" hidden aria-label="Bulk add to summary">
+<div class="table-heading"><h2>Bulk add to summary</h2><button id="bulk-close" type="button">Close</button></div>
+<p>Upload a CSV with a header row, or paste part numbers from an Excel column (one per line, without a header). Totals use the loaded history and selected status filter. Existing summary entries will update.</p>
+<label for="bulk-file">Part list CSV</label><input id="bulk-file" type="file" accept=".csv,text/csv">
+<div id="bulk-mapping" hidden><label for="bulk-column">Part number column</label><select id="bulk-column"></select></div>
+<label for="bulk-paste">Or paste part numbers</label><textarea id="bulk-paste" rows="5" placeholder="001234&#10;ABC-567"></textarea>
+<button id="bulk-preview-button" type="button">Preview parts</button>
+<p id="bulk-message" role="status"></p>
+<div id="bulk-preview" hidden><div class="table-scroll"><table id="bulk-table"></table></div><button id="bulk-add" type="button" disabled>Add matched parts</button></div>
 </section>
 <div id="empty" class="empty"><h2>Your production history, in one view.</h2><p>Upload a CSV, then select a part to compare estimated hours across work orders and work centers.</p></div>
 <section id="results" hidden>
@@ -26,6 +37,7 @@
 <div class="table-heading"><h3>Run history</h3><span>Click a combo to see all its parts • Hours are estimates • Dates are Ship By</span></div>
 <div class="table-scroll"><table id="history"></table></div>
 </section>
+<fieldset id="summary-fields" class="summary-fields" hidden><legend>Part information columns in summary</legend><p>Choose fields to show in the summary and its export. Values are saved when each part is added and include all statuses.</p><div id="summary-field-options"></div></fieldset>
 <section id="summary-section" class="summary-section" hidden aria-label="Collected part summary">
 <div class="table-heading"><div><h2>Parts summary</h2><p id="summary-status" role="status"></p></div><div class="header-actions"><button id="export-summary" type="button">Export summary</button><button id="clear-summary" type="button">Clear summary</button></div></div>
 <div class="table-scroll"><table id="summary-table"></table></div>

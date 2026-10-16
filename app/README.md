@@ -27,3 +27,7 @@ server {
 ```
 
 The app sends uploaded CSVs to its own server at the relative `api/csv` endpoint. Any visitor can read and replace the shared file. It uses no external scripts, fonts, or services. The example Nginx static-file block above supports local-only behavior; use the Docker server for shared uploads.
+
+Use **Bulk add to summary** to upload a separate CSV part list with a header row and select its part-number column, or paste one part number per line without a header. Preview shows matched parts, existing entries to update, duplicates, blanks, missing parts, and parts excluded by the selected status filter. **Add matched parts** uses the loaded history to calculate totals. Matching ignores case and surrounding whitespace, preserves leading zeros, and ignores duplicate parts. Bulk part lists stay in the browser and do not replace the shared history CSV. Changing the status filter or loading new history requires a fresh preview.
+
+**Part information columns in summary** lets you select any available part information field for the table and CSV export: usage, colors, ITEMNO1, ITEMNO2, OVERITEMNO, label length, and label width. Single and bulk adds save all these values from all statuses; changing column visibility works for entries already collected. Distinct values are shown together, with blanks omitted and no summing or unit conversion. Information remains a snapshot until the part is added again. Missing values leave an empty cell; combined totals apply only to quantities and hours.
