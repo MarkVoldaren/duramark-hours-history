@@ -28,7 +28,7 @@ function createServer() {
         send(200,{name:snapshot.name,uploadedAt:snapshot.uploadedAt});return;
       }
       if(req.method!=='GET'&&req.method!=='HEAD'){send(405,{error:'Method not allowed.'});return;}
-      const assets={'/':'index.html','/index.html':'index.html','/styles.css':'styles.css','/app.js':'app.js'};
+      const assets={'/':'index.html','/index.html':'index.html','/styles.css':'styles.css','/app.js':'app.js','/excel-export.js':'excel-export.js'};
       const asset=assets[url.pathname];if(!asset){send(404,{error:'Not found.'});return;}
       const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8'};
       const content=await fs.readFile(path.join(__dirname,'app',asset));res.writeHead(200,{'Content-Type':types[path.extname(asset)],'Cache-Control':'no-cache','X-Content-Type-Options':'nosniff'});res.end(req.method==='HEAD'?undefined:content);

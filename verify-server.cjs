@@ -13,7 +13,10 @@ const path=require('node:path');
  assert.equal((await fetch(base+'/api/csv',{method:'PUT',body:'invalid'})).status,400);assert.equal((await (await fetch(base+'/api/csv')).json()).csv,csv);
  assert.equal((await fetch(base+'/api/csv',{method:'PUT',headers:{Origin:'https://other.example'},body:csv})).status,403);
  await stop();base=await start();assert.equal((await (await fetch(base+'/api/csv')).json()).csv,csv);
- assert.equal((await fetch(base+'/app.js')).status,200);assert.equal((await fetch(base+'/data/latest.json')).status,404);
+ assert.equal((await fetch(base+'/app.js')).status,200);
+ const excel=await fetch(base+'/excel-export.js');assert.equal(excel.status,200);assert.match(excel.headers.get('content-type'),/javascript/);assert.match(await excel.text(),/const ExcelExport/);
+ const dockerfile=await fs.readFile(path.join(__dirname,'Dockerfile'),'utf8'),ignore=await fs.readFile(path.join(__dirname,'.dockerignore'),'utf8');assert.match(dockerfile,/COPY[^\n]*app\/excel-export\.js/);assert.match(ignore,/^!app\/excel-export\.js\s*$/m);
+ assert.equal((await fetch(base+'/data/latest.json')).status,404);
  console.log('Shared upload, second visitor, restart persistence, invalid-upload preservation, and static serving passed.');
  }finally{if(server?.listening)await stop();await fs.rm(dir,{recursive:true,force:true});}
 })().catch(e=>{console.error(e);process.exitCode=1;});
