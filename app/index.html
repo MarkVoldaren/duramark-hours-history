@@ -5,6 +5,7 @@
 <title>Part Hours History</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23112640'/%3E%3Cpath d='M7 24V16h4v8m3 0V8h4v16m3 0V12h4v12' stroke='%233dc9c0' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="styles.css">
+<script src="excel-export.js" defer></script>
 <script src="app.js" defer></script>
 </head>
 <body>
@@ -39,7 +40,7 @@
 </section>
 <fieldset id="summary-fields" class="summary-fields" hidden><legend>Part information columns in summary</legend><p>Choose fields to show in the summary and its export. Values are saved when each part is added and include all statuses.</p><div id="summary-field-options"></div></fieldset>
 <section id="summary-section" class="summary-section" hidden aria-label="Collected part summary">
-<div class="table-heading"><div><h2>Parts summary</h2><p id="summary-status" role="status"></p></div><div class="header-actions"><button id="export-summary" type="button">Export summary</button><button id="clear-summary" type="button">Clear summary</button></div></div>
+<div class="table-heading"><div><h2>Parts summary</h2><p id="summary-status" role="status"></p></div><div class="header-actions"><button id="export-excel" type="button">Export Excel</button><button id="export-summary" type="button">Export CSV</button><button id="clear-summary" type="button">Clear summary</button></div></div>
 <div class="table-scroll"><table id="summary-table"></table></div>
 </section>
 </main>
